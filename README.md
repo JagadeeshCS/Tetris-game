@@ -1,4 +1,5 @@
 import pygame
+
 import random
 
 pygame.font.init()
@@ -12,11 +13,11 @@ block_size = 30
 top_left_x = (s_width - play_width) // 2
 top_left_y = s_height - play_height
  
- 
-S = [['.....',                     # Shape Formate
+'' Shape formate ''
+S = [['.....',
       '.....',
       '..00.',
-      '.00..',              
+      '.00..',
       '.....'],
      ['.....',
       '..0..',
