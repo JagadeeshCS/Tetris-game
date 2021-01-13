@@ -11,9 +11,11 @@ play_height = 600
 block_size = 30
  
 top_left_x = (s_width - play_width) // 2
+
 top_left_y = s_height - play_height
  
 '' Shape formate ''
+
 S = [['.....',
       '.....',
       '..00.',
@@ -133,8 +135,8 @@ class Piece(object):
  
  
 def create_grid(locked_positions={}):                             # function for creating grids( boxes )
+   
     grid = [[(0,0,0) for x in range(10)] for x in range(20)]      
- 
     for i in range(len(grid)):
         for j in range(len(grid[i])):
             if (j,i) in locked_positions:
@@ -144,6 +146,7 @@ def create_grid(locked_positions={}):                             # function for
  
  
 def convert_shape_format(shape):                               # function for changing shapes 
+    
     positions = []
     format = shape.shape[shape.rotation % len(shape.shape)]
  
@@ -160,6 +163,7 @@ def convert_shape_format(shape):                               # function for ch
  
  
 def valid_space(shape, grid):                               
+     
     accepted_positions = [[(j, i) for j in range(10) if grid[i][j] == (0,0,0)] for i in range(20)]
     accepted_positions = [j for sub in accepted_positions for j in sub]
     formatted = convert_shape_format(shape)
@@ -173,6 +177,7 @@ def valid_space(shape, grid):
  
  
 def check_lost(positions):      #  function to check wheather user is lost
+    
     for pos in positions:
         x, y = pos
         if y < 1:
@@ -181,18 +186,20 @@ def check_lost(positions):      #  function to check wheather user is lost
  
  
 def get_shape():
+    
     global shapes, shape_colors    # global variables
- 
     return Piece(5, 0, random.choice(shapes))
  
  
 def draw_text_middle(text, size, color, surface):               
+    
     font = pygame.font.SysFont('comicsans', size, bold=True)      
     label = font.render(text, 1, color)
     surface.blit(label, (top_left_x + play_width/2 - (label.get_width() / 2), top_left_y + play_height/2 - label.get_height()/2))
  
  
 def draw_grid(surface, row, col):
+    
     sx = top_left_x
     sy = top_left_y
     for i in range(row):
@@ -202,6 +209,7 @@ def draw_grid(surface, row, col):
  
  
 def clear_rows(grid, locked):                  # need to see if row is clear the shift every other row above down one 
+    
     inc = 0
     for i in range(len(grid)-1,-1,-1):
         row = grid[i]
@@ -223,6 +231,7 @@ def clear_rows(grid, locked):                  # need to see if row is clear the
  
  
 def draw_next_shape(shape, surface):
+    
     font = pygame.font.SysFont('comicsans', 30)
     label = font.render('Next Shape', 1, (255,255,255))
  
@@ -239,9 +248,9 @@ def draw_next_shape(shape, surface):
     surface.blit(label, (sx + 10, sy- 30))
  
  
-def draw_window(surface):
+def draw_window(surface):     # TETRIS title
+   
     surface.fill((0,0,0))
-    # Tetris Title
     font = pygame.font.SysFont('comicsans', 60)
     label = font.render('TETRIS', 1, (255,255,255))
  
@@ -257,8 +266,8 @@ def draw_window(surface):
  
  
 def main():
+    
     global grid
- 
     locked_positions = {}                   # (x,y):(255,0,0)
     grid = create_grid(locked_positions)
     change_piece = False
@@ -307,12 +316,6 @@ def main():
                     if not valid_space(current_piece, grid):
                         current_piece.y -= 1
  
-                '''if event.key == pygame.K_SPACE:
-                    while valid_space(current_piece, grid):
-                        current_piece.y += 1
-                    current_piece.y -= 1
-                    print(convert_shape_format(current_piece))'''  # todo fix
- 
         shape_pos = convert_shape_format(current_piece)
         for i in range(len(shape_pos)):       # add piece to the grid for drawing
             x, y = shape_pos[i]
@@ -340,7 +343,8 @@ def main():
     pygame.time.delay(2000)
  
  
-def main_menu():
+def main_menu():    # for displaying  " Press any key to begin "
+    
     run = True
     while run:
         win.fill((0,0,0))
